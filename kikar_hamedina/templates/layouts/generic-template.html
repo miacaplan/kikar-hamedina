@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-override.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,9 +41,11 @@
 
     <!-- Load bootstrap from the cdn and fallback to local if no internet available -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
     <!-- FALLBACK NOT WORKING FOR SOME REASON
     <script>$.fn.modal || document.write('<script src="{{ STATIC_URL }}js/libs/bootstrap/3.3.1/bootstrap.min.js"><\/script>')</script>
     -->
+
     {#    {% load staticfiles %}#}
     {% load kikartags_extras %}
 </head>
@@ -59,15 +62,15 @@
         </div>
 
         <nav class="nav-bar">
-            <form class="search" id="search-bar-form">
+            <form class="search" id="search-bar-form" action="/search/">
                 <span class="glyphicon glyphicon-search"></span>
                 <input type="text" id="navbar-search-box" name="search_str"
                        data-toggle="dropdown"
                        autocomplete="off"
                        role="search"
                        placeholder="חפש חבר כנסת, נושא מתויג, או מילים שח״כים אומרים"/>
-                 <ul id="search-results-list">
-                </ul> 
+                <ul id="search-results-list">
+                </ul>
                 <!-- <ul id="search-results-list">
                     <li class="result-container">
                         <a href="/member/831">
@@ -88,15 +91,17 @@
                         </a>
                     </li>
                 </ul> -->
-{#                <div class="input-group-btn">#}
-{#                    <button class="btn btn-success" id="search-bar-submit" data-target="{% url 'search' %}"#}
-{#                            type="button"><i class="fa fa-search"></i></button>#}
-{#                </div>#}
+                {#                <div class="input-group-btn">#}
+                {#                    <button class="btn btn-success" id="search-bar-submit" data-target="{% url 'search' %}"#}
+                {#                            type="button"><i class="fa fa-search"></i></button>#}
+                {#                </div>#}
             </form>
             <ul class="nav-bar-items">
                 <li><a href="{% url 'billboards' %}">המצעד</a></li>
                 <li><a href="{% url 'about' %}">אודות</a></li>
-                <!-- <li><a href="{% url 'zinnia_entry_archive_index' %}">בלוג</a></li> -->
+                <li>
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AZ8ZHE9EVN59Y">תרומה</a>
+                </li>
             </ul>
         </nav>
 
@@ -105,6 +110,22 @@
 
 {% block sidebar %}
     <nav class="sidebar">
+        <ul class="nav-sidebar-links-container">
+            <!--<li class="nav-sidebar-link">-->
+            <!--<a href="{% url 'zinnia_entry_archive_index' %}">לבלוג שלנו</a>-->
+            <!--</li>-->
+            <li class="nav-sidebar-link">
+                <a href="{% url 'search-gui' %}">חיפוש מתקדם</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-sidebar-link">
+                    <a href="{% url 'untagged' %}">תיוג</a>
+                </li>
+                <li class="nav-sidebar-link">
+                    <a href="{% url 'zinnia_entry_archive_index' %}">בלוג</a>
+                </li>
+            {% endif %}
+        </ul>
         <ul class="nav-sidebar">
             <li class="nav-sidebar-heading">לפי פוליטיקאי</li>
             {% for member in navMembersTop|slice:":5" %}
@@ -178,7 +199,6 @@
             if (win.width() >= 768) {
                 $('.sidebar').show();
                 $('.nav-bar').show();
-                $('.sidebar').css("padding", "20px 0 20px 0");
             }
             //causes weird behaviour. not essential either way
             // else {
@@ -189,9 +209,6 @@
         $('#pull-menu').click(function () {
             $('.nav-bar').toggle();
             $('.sidebar').toggle();
-
-            // ugly hack, because toggle was removing padding for some reason
-            $('.sidebar').css("padding", "129px 0 20px 0");
         });
     });
 </script>
@@ -200,8 +217,6 @@
 {% block link %}
 {% endblock %}
 
-{% block scripts %}
-{% endblock %}
 
 <!-- Handelbar Templates -->
 
@@ -275,6 +290,9 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/addTagToStatus.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/fbInit.js"></script>
 
+
+{% block extra_js_files %}
+{% endblock extra_js_files %}
 
 </body>
 </html>
