@@ -110,18 +110,23 @@
 
 {% block sidebar %}
     <nav class="sidebar">
-        <ul class="nav-sidebar-links-container">
+        <!-- <ul class="nav-sidebar-links-container"> -->
+        <ul class="nav-sidebar">
             <!--<li class="nav-sidebar-link">-->
             <!--<a href="{% url 'zinnia_entry_archive_index' %}">לבלוג שלנו</a>-->
             <!--</li>-->
-            <li class="nav-sidebar-link">
+            <!-- <li class="nav-sidebar-link"> -->
+            <!-- <li class="nav-sidebar-heading">קישורים</li> -->
+            <li>
                 <a href="{% url 'search-gui' %}">חיפוש מתקדם</a>
             </li>
             {% if user.is_authenticated %}
-                <li class="nav-sidebar-link">
+                <!-- <li class="nav-sidebar-link"> -->
+                <li>
                     <a href="{% url 'untagged' %}">תיוג</a>
                 </li>
-                <li class="nav-sidebar-link">
+                <!-- <li class="nav-sidebar-link"> -->
+                <li>
                     <a href="{% url 'zinnia_entry_archive_index' %}">בלוג</a>
                 </li>
             {% endif %}
