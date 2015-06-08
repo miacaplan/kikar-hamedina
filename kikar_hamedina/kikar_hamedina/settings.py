@@ -152,7 +152,7 @@ CURRENT_KNESSET_NUMBER = 19
 CURRENT_ELECTED_KNESSET_NUMBER = CURRENT_KNESSET_NUMBER + 1
 
 # In elections mode e.g. Knesset candidates are shown instead of Knesset members
-IS_ELECTIONS_MODE = False
+IS_ELECTIONS_MODE = True
 
 LOGGING = {
     'version': 1,

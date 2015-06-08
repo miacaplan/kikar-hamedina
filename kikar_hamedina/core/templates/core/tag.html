@@ -1,3 +1,15 @@
 {% extends "core/facebook_statuses_page_newdesign.html" %}
 
 {% block title %}כיכר המדינה - נושא - {{ object.name }}{% endblock title %}
+
+{% block info_bar %}
+  <div class="politician-info-bar clearfix" style="font-size: 22px; line-height: 80px;">
+    <!-- <i class="fa fa-university"></i> -->
+    <span>נושא </span>
+    <span class="bold">
+      {{ object.name }}
+    </span>
+<!--     <span>תיוג: </span>
+    <span class="politician-info-bar-name">{{ object.name }}</span> -->
+  </div>
+{% endblock info_bar %}
